@@ -30,7 +30,6 @@ export default function BannerCarousel() {
         ))}
       </div>
 
-      {/* Dots */}
       <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-2">
         {banners.map((_, i) => (
           <span
