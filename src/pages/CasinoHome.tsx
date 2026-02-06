@@ -2,16 +2,23 @@ import { useGames } from "../hooks/useGames";
 import BannerCarousel from "../components/BannerCarousel";
 import CategoryTabs from "../components/CategoryTabs";
 import GameGrid from "../components/GameGrid";
+import SearchBar from "../components/SearchBar";
 import type { GameCategory } from "../types/game";
 import { useState } from "react";
+import { useDebounce } from "../hooks/useDebounce";
 
 export default function CasinoHome() {
   const { games, loading, toggleFavorite } = useGames();
   const [activeCategory, setActiveCategory] = useState<GameCategory>("START");
+  const [search, setSearch] = useState("");
 
-  const filteredGames = games.filter(
-    (game) => game.category === activeCategory,
-  );
+  const debouncedSearch = useDebounce(search);
+
+  const filteredGames = games
+    .filter((game) => game.category === activeCategory)
+    .filter((game) =>
+      game.name.toLowerCase().includes(debouncedSearch.toLowerCase()),
+    );
 
   if (loading) {
     return <div className="p-4 text-center">Loading games...</div>;
@@ -21,7 +28,7 @@ export default function CasinoHome() {
     <div className="space-y-4">
       <BannerCarousel />
       <CategoryTabs active={activeCategory} onChange={setActiveCategory} />
-      {/* SearchBar */}
+      <SearchBar value={search} onChange={setSearch} />
       {/* ProviderFilter */}
       <GameGrid games={filteredGames} onToggleFavorite={toggleFavorite} />
     </div>
