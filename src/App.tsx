@@ -1,5 +1,11 @@
+import CasinoHome from "./pages/CasinoHome";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <CasinoHome />
+    </>
+  );
 }
 
 export default App;

@@ -1,4 +1,5 @@
 import { useGames } from "../hooks/useGames";
+import BannerCarousel from "./BannerCarousel";
 
 export default function CasinoHome() {
   const { games, loading, toggleFavorite } = useGames();
@@ -9,6 +10,7 @@ export default function CasinoHome() {
 
   return (
     <div className="space-y-4">
+      <BannerCarousel />
       {/* BannerCarousel */}
       {/* CategoryTabs */}
       {/* SearchBar */}
