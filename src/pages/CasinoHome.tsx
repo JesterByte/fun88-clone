@@ -1,6 +1,6 @@
 import { useGames } from "../hooks/useGames";
-import BannerCarousel from "./BannerCarousel";
-import CategoryTabs from "./CategoryTabs";
+import BannerCarousel from "../components/BannerCarousel";
+import CategoryTabs from "../components/CategoryTabs";
 import type { GameCategory } from "../types/game";
 import { useState } from "react";
 
