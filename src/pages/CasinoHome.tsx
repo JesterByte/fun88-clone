@@ -19,7 +19,9 @@ export default function CasinoHome() {
   const providers = Array.from(new Set(games.map((game) => game.provider)));
 
   const filteredGames = games
-    .filter((game) => game.category === activeCategory)
+    .filter(
+      (game) => activeCategory === "START" || game.category === activeCategory,
+    )
     .filter((game) =>
       game.name.toLowerCase().includes(debouncedSearch.toLowerCase()),
     )
