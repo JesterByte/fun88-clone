@@ -15,7 +15,7 @@ export default function BannerCarousel() {
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden">
+    <div className="relative overflow-hidden rounded-lg mx-4">
       <div
         className="flex transition-transform duration-500"
         style={{ transform: `translateX(-${index * 100}%)` }}
