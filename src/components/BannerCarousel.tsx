@@ -1,10 +1,23 @@
 import { useEffect, useState } from "react";
-import { banners } from "../api/banner";
+import { desktopBanners, mobileBanners } from "../api/banner";
 
 const AUTO_SLIDE_MS = 3000;
 
 export default function BannerCarousel() {
   const [index, setIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+
+  const banners = isMobile ? mobileBanners : desktopBanners;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+
+      window.addEventListener("resize", handleResize);
+
+      return () => window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,16 +38,7 @@ export default function BannerCarousel() {
             key={banner.id}
             src={banner.image}
             alt="Casino Banner"
-            className="w-full flex-shrink-0 object-cover"
-          />
-        ))}
-      </div>
-
-      <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-2">
-        {banners.map((_, i) => (
-          <span
-            key={i}
-            className={`h-2 w-2 rounded-full ${i === index ? "bg-white" : "bg-white/50"}`}
+            className="w-full h-48 sm:h-96 lg:h-80 flex-shrink-0 object-cover"
           />
         ))}
       </div>
