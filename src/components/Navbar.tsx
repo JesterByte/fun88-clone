@@ -13,10 +13,10 @@ export default function Navbar() {
             className="lg:hidden text-2xl"
             onClick={() => setMenuOpen(true)}
           >
-            <img src="/burger-menu-left.svg" className="h-6 w-auto" alt="" />
+            <img src="/icons/burger-menu-left.svg" className="h-6 w-auto" alt="" />
           </button>
 
-          <img src="/fun-88.webp" alt="FUN88" className="h-4 w-auto" />
+          <img src="/icons/fun-88.webp" alt="FUN88" className="h-4 w-auto" />
         </div>
 
         <div className="hidden md:flex items-center gap-4 text-[#2596be] font-bold uppercase">

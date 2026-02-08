@@ -4,6 +4,7 @@ import CategoryTabs from "../components/CategoryTabs";
 import GameGrid from "../components/GameGrid";
 import SearchBar from "../components/SearchBar";
 import ProviderFilter from "../components/ProviderFilter";
+import ProviderCarousel from "../components/ProviderCarousel";
 import Navbar from "../components/Navbar";
 import type { GameCategory } from "../types/game";
 import { useState } from "react";
@@ -37,6 +38,7 @@ export default function CasinoHome() {
       <Navbar />
       <div className="space-y-4">
         <BannerCarousel />
+        <ProviderCarousel />
         <CategoryTabs active={activeCategory} onChange={setActiveCategory} />
         <SearchBar value={search} onChange={setSearch} />
         <ProviderFilter

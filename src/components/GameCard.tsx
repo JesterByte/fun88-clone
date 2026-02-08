@@ -7,11 +7,11 @@ interface Props {
 
 export default function GameCard({ game, onToggleFavorite }: Props) {
   return (
-    <div className="relative rounded-lg bg-gray-900 p-2">
+    <div className="relative rounded-xl bg-gray-900">
       <img
         src={game.image}
         alt={game.name}
-        className="h-32 w-full rounded object-cover"
+        className="h-32 w-full rounded object-contain"
       />
 
       <button
@@ -21,8 +21,8 @@ export default function GameCard({ game, onToggleFavorite }: Props) {
         {game.isFavorite ? "⭐" : "☆"}
       </button>
 
-      <div className="mt-2 text-sm text-white">{game.name}</div>
-      <div className="text-xs text-white/50">{game.provider}</div>
+      {/* <div className="mt-2 text-sm text-white">{game.name}</div>
+      <div className="text-xs text-white/50">{game.provider}</div> */}
     </div>
   );
 }
