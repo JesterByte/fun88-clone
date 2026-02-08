@@ -1,13 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 import { providers } from "../api/providers";
+import type { Game } from "../types/game";
+import Modal from "./Modal";
 
 const AUTO_SCROLL_MS = 3000;
 
-export default function ProviderCarousel() {
+interface Props {
+  filteredGames: Game[];
+  onClick: (provider: string) => void;
+}
+
+export default function ProviderCarousel({ filteredGames, onClick }: Props) {
   const [itemsPerView, setItemsPerView] = useState(5);
+  const [selectedProvider, setSelectedProvider] = useState("");
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const itemRef = useRef<HTMLDivElement>(null);
+
+  const toggleProvider = (provider: string) => {
+    setSelectedProvider(provider);
+  };
+
+  useEffect(() => {
+    onClick(selectedProvider);
+  }, [selectedProvider]);
 
   useEffect(() => {
     const updateLayout = () => {
@@ -78,7 +95,10 @@ export default function ProviderCarousel() {
           <p className="text-gray-500">Game providers</p>
 
           <div className="flex items-center  space-x-2">
-            <button className="bg-gray-100 rounded px-3 py-1.5 text-sm">
+            <button
+              className="bg-gray-100 rounded px-3 py-1.5 text-sm"
+              onClick={() => setModalOpen(true)}
+            >
               More
             </button>
 
@@ -108,17 +128,62 @@ export default function ProviderCarousel() {
               style={{ flex: `0 0 calc(100% / ${itemsPerView})` }}
               className="p-1 snap-start"
             >
-              <div className="flex items-center justify-center bg-gray-100 rounded h-12 md:h-14 sm:h-16">
-                <img
+              <div
+                className={`flex items-center justify-center bg-gray-100 rounded h-12 md:h-14 sm:h-16 gap-2 ${selectedProvider === provider.name ? "border border-[#2596be]" : ""}`}
+                onClick={() => {
+                  if (selectedProvider === provider.name) {
+                    setSelectedProvider("");
+                  } else {
+                    setSelectedProvider(provider.name);
+                  }
+                }}
+              >
+                {/* <img
                   src={provider.logo}
                   alt={provider.name}
                   className="h-full w-full max-h-10 max-w-[80%] object-contain"
-                />
+                /> */}
+                <div className="text-sm">{provider.name}</div>
+                <div className="text-gray-500">
+                  (
+                  {
+                    filteredGames.filter((game: Game) => {
+                      return game.provider === provider.name;
+                    }).length
+                  }
+                  )
+                </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        title={`Game providers (${providers.length})`}
+      >
+        <div className="grid grid-cols-2 gap-2 px-4">
+          {providers.map((provider) => (
+            <>
+              <div
+                className="relative rounded-xl bg-gray-100 flex justify-center items-center h-12"
+                onClick={() => {
+                  toggleProvider(provider.name);
+                }}
+              >
+                {/* <img
+                          src={provider.logo}
+                          alt={provider.name}
+                          onClick={() => toggleProvider(provider.name)}
+                        /> */}
+                {provider.name}
+              </div>
+            </>
+          ))}
+        </div>
+      </Modal>
     </>
   );
 }

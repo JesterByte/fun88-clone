@@ -6,7 +6,11 @@ import SearchBar from "./SearchBar";
 interface Props {
   active: GameCategory;
   onChange: (category: GameCategory) => void;
-  onFilterChange: (category: GameCategory, search: string) => void;
+  onFilterChange: (
+    category: GameCategory,
+    search: string,
+    selectedProvider: string,
+  ) => void;
 }
 
 export default function CategoryTabs({
@@ -15,15 +19,16 @@ export default function CategoryTabs({
   onFilterChange,
 }: Props) {
   const [search, setSearch] = useState("");
+  const [selectedProvider, setSelectedProvider] = useState("");
   const [openSearch, setOpenSearch] = useState(false);
 
   useEffect(() => {
-    onFilterChange(active, search);
-  }, [active, search]);
+    onFilterChange(active, search, selectedProvider);
+  }, [active, search, selectedProvider]);
 
   return (
     <>
-      <div className="flex gap-2 overflow-auto px-4">
+      <div className="flex gap-2 overflow-auto px-4 mx-4">
         <button
           className="font-medium text-sm"
           onClick={() => setOpenSearch(!openSearch)}
@@ -60,7 +65,15 @@ export default function CategoryTabs({
         })}
       </div>
 
-      {openSearch && <SearchBar value={search} onChange={setSearch} />}
+      {openSearch && (
+        <SearchBar
+          value={search}
+          onChange={(search, provider) => {
+            setSearch(search);
+            setSelectedProvider(provider);
+          }}
+        />
+      )}
     </>
   );
 }

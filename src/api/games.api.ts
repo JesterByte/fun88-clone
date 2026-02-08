@@ -12,7 +12,7 @@ const randomCategory = (): GameCategory => {
   return categories[randomIndex];
 };
 
-const mockGames: Game[] = Array.from({ length: 30 }).map((_, i) => ({
+const mockGames: Game[] = Array.from({ length: 999 }).map((_, i) => ({
   id: String(i),
   name: `Game ${i + 1}`,
   image: "/icons/fun-88.webp",
