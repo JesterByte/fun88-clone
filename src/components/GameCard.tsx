@@ -21,8 +21,8 @@ export default function GameCard({ game, onToggleFavorite }: Props) {
         {game.isFavorite ? "⭐" : "☆"}
       </button>
 
-      {/* <div className="mt-2 text-sm text-white">{game.name}</div>
-      <div className="text-xs text-white/50">{game.provider}</div> */}
+      <div className="mt-2 text-sm text-white">{game.name}</div>
+      <div className="text-xs text-white/50">{game.provider}</div>
     </div>
   );
 }

@@ -1,11 +1,23 @@
-import type { Game } from "../types/game";
+import type { Game, GameCategory } from "../types/game";
+import { categories } from "../types/game";
+import { providers } from "./providers";
+
+const randomProvider = () => {
+  const randomIndex = Math.floor(Math.random() * providers.length);
+  return providers[randomIndex].name;
+};
+
+const randomCategory = (): GameCategory => {
+  const randomIndex = Math.floor(Math.random() * categories.length);
+  return categories[randomIndex];
+};
 
 const mockGames: Game[] = Array.from({ length: 30 }).map((_, i) => ({
   id: String(i),
   name: `Game ${i + 1}`,
-  image: "/fun-88.webp",
-  provider: i % 2 === 0 ? "Pragmatic" : "PG Soft",
-  category: i % 3 === 0 ? "NEW" : "SLOTS",
+  image: "/icons/fun-88.webp",
+  provider: randomProvider(),
+  category: randomCategory(),
   isFavorite: false,
 }));
 
