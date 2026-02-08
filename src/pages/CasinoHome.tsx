@@ -7,6 +7,7 @@ import Navbar from "../components/Navbar";
 import type { GameCategory } from "../types/game";
 import { useState } from "react";
 import type { Game } from "../types/game";
+import CasinoSeoContent from "../components/CasinoSeoContent";
 
 export default function CasinoHome() {
   const { games, loading, toggleFavorite } = useGames();
@@ -47,6 +48,7 @@ export default function CasinoHome() {
           selectedProvider={selectedProvider}
           onToggleFavorite={toggleFavorite}
         />
+        <CasinoSeoContent />
       </div>
     </>
   );
