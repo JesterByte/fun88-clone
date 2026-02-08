@@ -2,7 +2,8 @@ import { casinoSubItems } from "../api/casinoSubItems";
 import { sportsBettingSubItems } from "../api/sportsBettingSubItems";
 import { myProfileSubItems } from "../api/myProfileSubItemss";
 import { cashierSubItems } from "../api/cashierSubItems";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 interface Props {
   isOpen: boolean;
@@ -35,6 +36,15 @@ export default function OffCanvasMenu({ isOpen, onClose }: Props) {
     Cashier: cashierSubItems,
   };
 
+  const { theme, toggle } = useTheme();
+  const [textColor, setTextColor] = useState(
+    theme === "dark" ? "text-white" : "text-gray-700",
+  );
+
+  useEffect(() => {
+    setTextColor(theme === "dark" ? "text-white" : "text-gray-700");
+  }, [theme]);
+
   const [openSections, setOpenSections] = useState<Set<string>>(
     () => new Set([]),
   );
@@ -55,7 +65,7 @@ export default function OffCanvasMenu({ isOpen, onClose }: Props) {
       >
         <aside
           onClick={(event) => event.stopPropagation()}
-          className={`flex flex-col fixed left-0 top-0 z-50 h-full w-80 max-w-[85%] bg-white transition-transform duration-300 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+          className={`flex flex-col fixed left-0 top-0 z-50 h-full w-80 max-w-[85%] ${theme === "dark" ? "bg-black" : "bg-white"}  transition-all duration-500 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           <div className="px-5 py-6">
             <p className="mb-4 text-sm font-semibold text-[#2596be] uppercase">
@@ -124,11 +134,17 @@ export default function OffCanvasMenu({ isOpen, onClose }: Props) {
             })}
 
             <div className="px-5 py-4">
-              <div className="flex rounded-full bg-gray-100 p-1">
-                <button className="flex-1 rounded-full py-2 text-sm font-semibold text-gray-700">
+              <div className="flex rounded-full bg-gray-400 p-1">
+                <button
+                  className={`flex-1 rounded-full py-2 text-sm font-semibold ${textColor} transition-all duration-500 ease-in-out ${theme === "dark" ? "bg-black shadow" : "hover:bg-gray-200 scale-100"}`}
+                  onClick={toggle}
+                >
                   🌙 Dark
                 </button>
-                <button className="flex-1 rounded-full bg-white py-2 text-sm font-semibold text-gray-700 shadow">
+                <button
+                  className={`flex-1 rounded-full py-2 text-sm font-semibold text-gray-700 transition-all duration-500 ease-in-out ${theme === "light" ? "bg-white shadow" : "hover-gray-200 scale-100"}`}
+                  onClick={toggle}
+                >
                   ☀️ Light
                 </button>
               </div>

@@ -23,7 +23,7 @@ export default function GameGrid({
     } else {
       setFilteredGames(games);
     }
-  }, [selectedProvider, games]);
+  }, [selectedProvider, games, onToggleFavorite]);
 
   if (games.length === 0) {
     return <div className="p-6 text-center text-white/60">No games found.</div>;

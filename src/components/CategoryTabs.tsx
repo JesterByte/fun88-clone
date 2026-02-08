@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { GameCategory } from "../types/game";
 import { categories } from "../types/game";
 import SearchBar from "./SearchBar";
+import { useTheme } from "../context/ThemeContext";
 
 interface Props {
   active: GameCategory;
@@ -21,6 +22,14 @@ export default function CategoryTabs({
   const [search, setSearch] = useState("");
   const [selectedProvider, setSelectedProvider] = useState("");
   const [openSearch, setOpenSearch] = useState(false);
+  const { theme } = useTheme();
+  const [textColor, setTextColor] = useState(
+    theme === "dark" ? "text-white" : "text-black",
+  );
+
+  useEffect(() => {
+    setTextColor(theme === "dark" ? "text-white" : "text-black");
+  }, [theme]);
 
   useEffect(() => {
     onFilterChange(active, search, selectedProvider);
@@ -30,7 +39,7 @@ export default function CategoryTabs({
     <>
       <div className="flex gap-2 overflow-auto px-4 mx-4">
         <button
-          className="font-medium text-sm"
+          className={`font-medium text-sm ${textColor}`}
           onClick={() => setOpenSearch(!openSearch)}
         >
           <img
@@ -45,12 +54,11 @@ export default function CategoryTabs({
           const isActive = active === category;
           const iconSrc = `/icons/${category.replace(/\s+/g, "_")}_${isActive ? "active" : "light"}.webp`;
           return (
-            <>
+            <div key={category}>
               <button
-                key={category}
                 onClick={() => onChange(category)}
                 className={`whitespace-nowrap rounded-full px-3 py-1.5 text-sm font-medium transition flex flex-col items-center ${
-                  isActive ? "text-[#2596be]" : "text-black"
+                  isActive ? "text-[#2596be]" : textColor
                 }`}
               >
                 <img
@@ -60,7 +68,7 @@ export default function CategoryTabs({
                 />
                 {category.toUpperCase()}
               </button>
-            </>
+            </div>
           );
         })}
       </div>

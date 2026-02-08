@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { providers } from "../api/providers";
 import type { Game } from "../types/game";
 import Modal from "./Modal";
+import { useTheme } from "../context/ThemeContext";
 
 const AUTO_SCROLL_MS = 3000;
 
@@ -14,6 +15,18 @@ export default function ProviderCarousel({ filteredGames, onClick }: Props) {
   const [itemsPerView, setItemsPerView] = useState(5);
   const [selectedProvider, setSelectedProvider] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
+  const { theme } = useTheme();
+  const [textColor, setTextColor] = useState(
+    theme === "dark" ? "text-white" : "text-black",
+  );
+  const [bgColor, setBgColor] = useState(
+    theme === "dark" ? "bg-neutral-700" : "bg-gray-100",
+  );
+
+  useEffect(() => {
+    setTextColor(theme === "dark" ? "text-white" : "text-black");
+    setBgColor(theme === "dark" ? "bg-neutral-700" : "bg-gray-100");
+  }, [theme]);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const itemRef = useRef<HTMLDivElement>(null);
@@ -92,11 +105,13 @@ export default function ProviderCarousel({ filteredGames, onClick }: Props) {
     <>
       <div className="mx-4 space-y-4">
         <div className="flex justify-between items-center">
-          <p className="text-gray-500">Game providers</p>
+          <p className={`${theme === "dark" ? "text-white" : "text-gray-500"}`}>
+            Game providers
+          </p>
 
-          <div className="flex items-center  space-x-2">
+          <div className="flex items-center space-x-2">
             <button
-              className="bg-gray-100 rounded px-3 py-1.5 text-sm"
+              className={`${theme === "dark" ? "bg-neutral-700 text-white" : "bg-gray-100"} rounded px-3 py-1.5 text-sm`}
               onClick={() => setModalOpen(true)}
             >
               More
@@ -105,13 +120,13 @@ export default function ProviderCarousel({ filteredGames, onClick }: Props) {
             <button onClick={scrollLeft}>
               <img
                 src="/icons/left-arrow.svg"
-                className="bg-gray-100 rounded px-3 py-1.5 h-7"
+                className={`${theme === "dark" ? "bg-neutral-700 text-white" : "bg-gray-100"} rounded px-3 py-1.5 h-7`}
               />
             </button>
             <button onClick={scrollRight}>
               <img
                 src="/icons/right-arrow.svg"
-                className="bg-gray-100 rounded px-3 py-1.5 h-7"
+                className={`${theme === "dark" ? "bg-neutral-700 text-white" : "bg-gray-100"} rounded px-3 py-1.5 h-7`}
               />
             </button>
           </div>
@@ -129,7 +144,7 @@ export default function ProviderCarousel({ filteredGames, onClick }: Props) {
               className="p-1 snap-start"
             >
               <div
-                className={`flex items-center justify-center bg-gray-100 rounded h-12 md:h-14 sm:h-16 gap-2 ${selectedProvider === provider.name ? "border border-[#2596be]" : ""}`}
+                className={`${theme === "dark" ? "bg-neutral-700 text-white" : "bg-gray-100"} flex items-center justify-center rounded h-12 md:h-14 sm:h-16 gap-2 ${selectedProvider === provider.name ? "border border-[#2596be]" : ""}`}
                 onClick={() => {
                   if (selectedProvider === provider.name) {
                     setSelectedProvider("");
@@ -144,7 +159,9 @@ export default function ProviderCarousel({ filteredGames, onClick }: Props) {
                   className="h-full w-full max-h-10 max-w-[80%] object-contain"
                 /> */}
                 <div className="text-sm">{provider.name}</div>
-                <div className="text-gray-500">
+                <div
+                  className={`${theme === "dark" ? "text-white" : "text-gray-500"}`}
+                >
                   (
                   {
                     filteredGames.filter((game: Game) => {
@@ -168,7 +185,7 @@ export default function ProviderCarousel({ filteredGames, onClick }: Props) {
           {providers.map((provider) => (
             <>
               <div
-                className="relative rounded-xl bg-gray-100 flex justify-center items-center h-12"
+                className={`${bgColor} ${textColor} relative rounded-lg flex justify-center items-center h-12`}
                 onClick={() => {
                   toggleProvider(provider.name);
                 }}

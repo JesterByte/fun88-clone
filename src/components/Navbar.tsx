@@ -1,19 +1,25 @@
 import { useState } from "react";
 import { links } from "../api/links";
 import OffCanvasMenu from "./OffCanvasMenu";
+import { useTheme } from "../context/ThemeContext";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme } = useTheme();
 
   return (
     <>
-      <header className="sticky top-0 z-30 flex h-14 items-center bg-white justify-between px-4">
+      <header className={`sticky top-0 z-30 flex h-14 items-center justify-between px-4 transition-all duration-500 ${theme === "dark" ? "bg-black" : "bg-white"}`}>
         <div className="flex items-center gap-2">
           <button
             className="lg:hidden text-2xl"
             onClick={() => setMenuOpen(true)}
           >
-            <img src="/icons/burger-menu-left.svg" className="h-6 w-auto" alt="" />
+            <img
+              src="/icons/burger-menu-left.svg"
+              className="h-6 w-auto"
+              alt=""
+            />
           </button>
 
           <img src="/icons/fun-88.webp" alt="FUN88" className="h-4 w-auto" />

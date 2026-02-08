@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import { providers } from "../api/providers";
+import { useTheme } from "../context/ThemeContext";
 
 interface Props {
   value: string;
@@ -11,6 +12,14 @@ export default function SearchBar({ value, onChange }: Props) {
   const [search, setSearch] = useState("");
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState("");
+  const { theme } = useTheme();
+  const [textColor, setTextColor] = useState(
+    theme === "dark" ? "text-white" : "text-black",
+  );
+
+  useEffect(() => {
+    setTextColor(theme === "dark" ? "text-white" : "text-black");
+  }, [theme]);
 
   useEffect(() => {
     onChange(search, selectedProvider);
@@ -35,7 +44,7 @@ export default function SearchBar({ value, onChange }: Props) {
               placeholder="Find you game"
               value={value}
               onChange={(event) => setSearch(event.target.value)}
-              className="w-full rounded-lg px-10 py-2 text-sm border border-[#9E9E9E] focus:outline-[#2596be]"
+              className={`placeholder:${textColor} ${textColor} w-full rounded-lg px-10 py-2 text-sm border border-[#9E9E9E] focus:outline-[#2596be]`}
             />
           </div>
         </div>
@@ -59,7 +68,7 @@ export default function SearchBar({ value, onChange }: Props) {
             {providers.map((provider) => (
               <>
                 <div
-                  className="relative rounded-xl bg-gray-100 flex justify-center items-center h-12"
+                  className={`${theme === "dark" ? "bg-neutral-700" : "bg-gray-100"} ${textColor} relative rounded-lg flex justify-center items-center h-12`}
                   onClick={() => {
                     toggleProvider(provider.name);
                   }}

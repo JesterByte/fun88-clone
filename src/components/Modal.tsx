@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useTheme } from "../context/ThemeContext";
 
 interface ModalProps {
   isOpen: boolean;
@@ -14,6 +15,8 @@ export default function Modal({
   children,
 }: ModalProps) {
   if (!isOpen) return null;
+
+  const { theme } = useTheme();
 
   return (
     <div
@@ -37,7 +40,7 @@ export default function Modal({
             ×
           </button>
         </div>
-        <div className="p-4 overflow-y-auto">{children}</div>
+        <div className={`p-4 overflow-y-auto rounded-b-lg ${theme === "dark" ? "bg-neutral-900" : "bg-white"}`}>{children}</div>
       </div>
     </div>
   );

@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+:root {
+  --bg: #ffffff;
+  --bg-secondary: #f6f6f6;
+  --text: #111111;
+  --text-muted: #666666;
+  --primary: #e10600;
+}
+
+[data-theme="dark"] {
+  --bg: #0f0f0f;
+  --bg-secondary: #1a1a1a;
+  --text: #f5f5f5;
+  --text-muted: #aaaaaa;
+  --primary: #ff3b3b;
+}
+
 @keyframes ticker {
   0% {
     transform: translateX(0);
