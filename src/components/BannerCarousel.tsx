@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { desktopBanners, mobileBanners } from "../api/banner";
+import { desktopBanners, mobileBanners } from "../api/banners";
 
 const AUTO_SLIDE_MS = 3000;
 

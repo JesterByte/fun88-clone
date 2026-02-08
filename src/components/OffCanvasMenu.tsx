@@ -1,6 +1,6 @@
 import { casinoSubItems } from "../api/casinoSubItems";
 import { sportsBettingSubItems } from "../api/sportsBettingSubItems";
-import { myProfileSubItems } from "../api/myProfileSubItems";
+import { myProfileSubItems } from "../api/myProfileSubItemss";
 import { cashierSubItems } from "../api/cashierSubItems";
 import { useState } from "react";
 

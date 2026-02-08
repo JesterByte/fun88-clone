@@ -8,6 +8,7 @@ import type { GameCategory } from "../types/game";
 import { useState } from "react";
 import type { Game } from "../types/game";
 import CasinoSeoContent from "../components/CasinoSeoContent";
+import Footer from "../components/Footer";
 
 export default function CasinoHome() {
   const { games, loading, toggleFavorite } = useGames();
@@ -22,7 +23,7 @@ export default function CasinoHome() {
   return (
     <>
       <Navbar />
-      <div className="space-y-4">
+      <main className="space-y-4">
         <BannerCarousel />
         <ProviderCarousel
           filteredGames={filteredGames}
@@ -49,7 +50,8 @@ export default function CasinoHome() {
           onToggleFavorite={toggleFavorite}
         />
         <CasinoSeoContent />
-      </div>
+      </main>
+      <Footer />
     </>
   );
 }
