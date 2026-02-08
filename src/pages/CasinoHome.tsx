@@ -21,12 +21,18 @@ export default function CasinoHome() {
 
   useEffect(() => {
     setFilteredGames(
-      games.filter(
-        (game) =>
-          (game.category === "Home" || game.category === activeCategory) &&
-          game.name.toLowerCase().includes(search) &&
-          (selectedProvider === "" || game.provider === selectedProvider),
-      ),
+      games
+        .filter(
+          (game) =>
+            activeCategory === "Home" || game.category === activeCategory,
+        )
+        .filter((game) =>
+          game.name.toLowerCase().includes(search.toLowerCase()),
+        )
+        .filter(
+          (game) =>
+            selectedProvider === "" || selectedProvider === game.provider,
+        ),
     );
   }, [games, activeCategory, selectedProvider]);
 
